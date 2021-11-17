@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 /**
@@ -61,8 +62,14 @@ public class DbShare
     return sources.get(name.toLowerCase());
   }
 
+  void createDataSources(List<DataSourceDetails> dataSourceDetailsList, Logger logger)
+  {
+    createDataSources(dataSourceDetailsList, logger::info, logger::severe);
+  }
+
   synchronized void createDataSources(
-    List<DataSourceDetails> dataSourceDetailsList, Logger logger)
+    List<DataSourceDetails> dataSourceDetailsList,
+    Consumer<String> info, Consumer<String> severe)
   {
     for (DataSourceDetails details : dataSourceDetailsList)
     {
@@ -81,17 +88,22 @@ public class DbShare
         }
 
         sources.put(details.getSourceName(), dataSource);
-        logger.info("Created DataSource " + details + ".");
+        info.accept("Created DataSource " + details + ".");
       }
       catch (Exception ex)
       {
         ex.printStackTrace();
-        logger.severe("Failed to create DataSource '" + details + "'.");
+        severe.accept("Failed to create DataSource '" + details + "'.");
       }
     }
   }
 
-  synchronized void closeAndRemoveDataSources(Logger logger)
+  void closeAndRemoveDataSources(Logger logger)
+  {
+    closeAndRemoveDataSources(logger::info, logger::severe);
+  }
+
+  synchronized void closeAndRemoveDataSources(Consumer<String> info, Consumer<String> severe)
   {
     Iterator<Map.Entry<String, HikariDataSource>> iter = sources.entrySet().iterator();
 
@@ -110,12 +122,12 @@ public class DbShare
         {
           // Close the data source
           dataSource.close();
-          logger.info("Closed DataSource '" + sourceName + "'.");
+          info.accept("Closed DataSource '" + sourceName + "'.");
         }
         catch (Exception ex)
         {
           ex.printStackTrace();
-          logger.severe("Failed to close DataSource '" + sourceName + "'.");
+          severe.accept("Failed to close DataSource '" + sourceName + "'.");
         }
       }
     }

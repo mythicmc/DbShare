@@ -1,0 +1,1 @@
+{"id":"dbshare","name":"DbShare","version":"@project.version@","description":"Multiple HikariDataSource manager for Spigot","authors":["GeeItsZee (tracebachi@gmail.com)"],"dependencies":[],"main":"com.gmail.tracebachi.DbShare.DbShareVelocityPlugin"}

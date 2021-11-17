@@ -15,12 +15,14 @@ repositories {
     mavenCentral()
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = "https://nexus.velocitypowered.com/repository/maven-public/" }
 }
 
 dependencies {
     implementation 'com.zaxxer:HikariCP:2.6.3'
     compileOnly 'net.md-5:bungeecord-api:1.16-R0.4'
     compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
+    compileOnly 'com.velocitypowered:velocity-api:3.0.1'
 }
 
 processResources {
