@@ -22,6 +22,7 @@ import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
+import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -37,6 +38,9 @@ import java.util.Map;
 /**
  * @author GeeItsZee (tracebachi@gmail.com)
  */
+@Plugin(id = "dbshare", name = "DbShare", version = "@project.version@",
+  description = "Multiple HikariDataSource manager for Velocity",
+  authors = {"GeeItsZee (tracebachi@gmail.com)"})
 public class DbShareVelocityPlugin
 {
   private ConfigurationNode config;
