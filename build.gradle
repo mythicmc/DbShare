@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.gmail.tracebachi'
-version '2.1.0'
+version '2.1.1'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.3'
     implementation 'com.zaxxer:HikariCP:2.6.3'
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
     compileOnly 'org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT'
@@ -34,4 +35,18 @@ processResources {
 blossom {
     replaceTokenIn('src/main/java/com/gmail/tracebachi/DbShare/DbShareVelocityPlugin.java')
     replaceToken '@project.version@', version
+}
+
+shadowJar {
+    // relocate 'com.zaxxer', 'com.gmail.tracebachi.DbShare.lib.com.zaxxer'
+    // relocate 'org.slf4j', 'com.gmail.tracebachi.DbShare.lib.org.slf4j'
+
+    // MariaDB Connector/J
+    relocate 'com.github', 'com.gmail.tracebachi.DbShare.lib.com.github'
+    relocate 'com.google.errorprone', 'com.gmail.tracebachi.DbShare.lib.com.google.errorprone'
+    relocate 'com.sun', 'com.gmail.tracebachi.DbShare.lib.com.sun'
+    relocate 'org.apache', 'com.gmail.tracebachi.DbShare.lib.org.apache'
+    relocate 'org.checkerframework', 'com.gmail.tracebachi.DbShare.lib.org.checkerframework'
+    relocate 'org.mariadb', 'com.gmail.tracebachi.DbShare.lib.org.mariadb'
+    relocate 'waffle', 'com.gmail.tracebachi.DbShare.lib.waffle'
 }

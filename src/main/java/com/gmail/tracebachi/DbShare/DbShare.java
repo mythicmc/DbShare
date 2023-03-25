@@ -21,6 +21,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+import org.mariadb.jdbc.MariaDbDataSource;
 
 /**
  * @author GeeItsZee (tracebachi@gmail.com)
@@ -133,16 +136,21 @@ public class DbShare
     }
   }
 
-  private HikariDataSource createDataSource(DataSourceDetails dataSourceDetails)
+  private HikariDataSource createDataSource(DataSourceDetails dataSourceDetails) throws SQLException
   {
     HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("jdbc:mysql://" + dataSourceDetails.getUrl());
+    // config.setJdbcUrl("jdbc:mysql://" + dataSourceDetails.getUrl());
+    final String url = "jdbc:mariadb://" + dataSourceDetails.getUrl();
+    final MariaDbDataSource dataSource = new MariaDbDataSource(
+      url + (url.contains("?") ? "&useServerPrepStmts" : "?useServerPrepStmts"));
+    config.setDataSource(dataSource);
     config.setUsername(dataSourceDetails.getUsername());
     config.setPassword(dataSourceDetails.getPassword());
-    config.addDataSourceProperty("cachePrepStmts", "true");
-    config.addDataSourceProperty("prepStmtCacheSize", "250");
-    config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-    config.addDataSourceProperty("useServerPrepStmts", "true");
+    // Removed in MariaDB Connector/J 3.x, replaced with URL parameter above.
+    // config.addDataSourceProperty("cachePrepStmts", "true");
+    // config.addDataSourceProperty("prepStmtCacheSize", "250");
+    // config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+    // config.addDataSourceProperty("useServerPrepStmts", "true");
     return new HikariDataSource(config);
   }
 }
