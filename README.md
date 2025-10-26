@@ -2,7 +2,11 @@
 DbShare is a helper plugin which allows you to build your `HikariDataSource`s once and reuse
 them across plugins.
 
-# Step One: Edit the configuration file (config.yml)
+## Usage
+
+DbShare is published to the [MythicMC Maven repository,](https://maven.mythicmc.org/#/releases/com/gmail/tracebachi/dbshare) and Javadocs are available [here](https://maven.mythicmc.org/javadoc/releases/com/gmail/tracebachi/dbshare/2.1.2).
+
+### Step One: Edit the configuration file (config.yml)
 ```yaml
 ###############################################################################
 # DbShare Configuration File
@@ -20,7 +24,7 @@ Databases:
     URL: localhost:3306/minecraft
 ```
 
-# Step Two: Use it in your plugin
+### Step Two: Use it in your plugin
 ```java
 public void updateDatabase() {
   HikariDataSource dataSource = DbShare.instance().getDataSource("MainDbShare");
@@ -31,7 +35,7 @@ public void updateDatabase() {
 }
 ```
 
-# Licence ([GPLv3](http://www.gnu.org/licenses/gpl-3.0.en.html))
+## Licence ([GPLv3](http://www.gnu.org/licenses/gpl-3.0.en.html))
 ```
 DbShare - Multiple HikariDataSource manager for Spigot
 Copyright (C) 2017 Trace Bachi (tracebachi@gmail.com)
