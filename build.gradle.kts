@@ -2,6 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     java
+    `java-library`
     `maven-publish`
     id("com.gradleup.shadow") version "9.2.2"
     id("net.kyori.blossom") version "2.2.0"
@@ -20,7 +21,7 @@ repositories {
 
 dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.1.3")
-    implementation("com.zaxxer:HikariCP:2.6.3")
+    api("com.zaxxer:HikariCP:2.6.3")
     compileOnly("net.md-5:bungeecord-api:1.21-R0.3")
     compileOnly("org.spigotmc:spigot-api:1.13.2-R0.1-SNAPSHOT")
     compileOnly("com.velocitypowered:velocity-api:3.1.1")
