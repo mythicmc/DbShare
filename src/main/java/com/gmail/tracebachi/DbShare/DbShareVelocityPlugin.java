@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * @author GeeItsZee (tracebachi@gmail.com)
  */
-@Plugin(id = "dbshare", name = "DbShare", version = "@project.version@",
+@Plugin(id = "dbshare", name = "DbShare", version = BuildMetadata.VERSION,
   description = "Multiple HikariDataSource manager for Velocity",
   authors = {"GeeItsZee (tracebachi@gmail.com)"})
 public class DbShareVelocityPlugin
