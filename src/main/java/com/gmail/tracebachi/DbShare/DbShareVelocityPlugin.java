@@ -129,6 +129,7 @@ public class DbShareVelocityPlugin
    * Originally authored by: vemacs, Feb 15, 2014
    *
    * @param plugin Plugin that contains the resource in it's JAR.
+   * @param dataFolder Folder to save the resource to.
    * @param resourceName Filename of the resource.
    * @param destinationName Filename of the destination.
    *
@@ -149,7 +150,8 @@ public class DbShareVelocityPlugin
       {
         if (destinationFile.createNewFile())
         {
-          try (InputStream in = plugin.getClass().getResourceAsStream(resourceName);
+          try (InputStream in = plugin.getClass().getClassLoader()
+                  .getResourceAsStream(resourceName);
             OutputStream out = new FileOutputStream(destinationFile))
           {
             ByteStreams.copy(in, out);
